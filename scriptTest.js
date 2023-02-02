@@ -50,7 +50,9 @@ function gameRound(playerSelection, computerSelection) {
 
 function game() {
   for (i = 1; i <= 5; i++) {
-    playerSelection = prompt("Enter Your Choice").toLowerCase();
+    playerSelection = prompt("Enter Your Choice")
+      .toLowerCase()
+      .replace(/\s+/g, "");
     computerSelection = computerPlay();
     console.log("Round number: " + i);
     gameRound(playerSelection, computerSelection);
