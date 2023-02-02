@@ -49,7 +49,7 @@ function gameRound(playerSelection, computerSelection) {
 }
 
 function game() {
-  for (i = 0; i < 5; i++) {
+  for (i = 1; i <= 5; i++) {
     playerSelection = prompt("Enter Your Choice").toLowerCase();
     computerSelection = computerPlay();
     console.log("Round number: " + i);
