@@ -1,6 +1,8 @@
 let playerScore = 0;
 let computerScore = 0;
-let message = "";
+let playerWins = 0;
+let computerWins = 0;
+// let message = "";
 
 function computerPlay() {
   const choices = ["Rock", "Paper", "Scissors"];
@@ -33,26 +35,50 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-  for (let i = 0; i < 5; i++) {
-    const computerSelection = computerPlay();
-    const playerSelection = prompt("Rock, Paper or Scissors").toLowerCase();
-    console.log(`Player selection is: ${playerSelection} `)
-    console.log(`Computer selection is: ${computerSelection} `);
-    console.log(playRound(playerSelection, computerSelection));
-  }
-  // determine winner of 5 round game  
-  if (playerScore > computerScore) {
-    message = "Congratulations! You won!!!";
+  for (let gameNumber = 1; gameNumber < 10; gameNumber++) {
+    let i = 1;
+    while (i <= 5) {
+      let playerSelection = prompt("Rock, Paper or Scissors").toLowerCase().replace(/\s/g, "");
+      if (playerSelection === "rocks") {
+        playerSelection = "rock"
+      } else if (playerSelection === "papers") {
+        playerSelection = "paper"
+      } else if (playerSelection === "scissor") {
+        playerSelection = "scissors"
+      }
+      if (playerSelection === "rock" || playerSelection === "paper" || playerSelection === "scissors") {
+        computerSelection = computerPlay();
+        console.log(`Round number ${i}`)
+        console.log(`Computer selection is: ${computerSelection}`);
+        console.log(`Player selection is: ${playerSelection} `)
+        console.log(playRound(playerSelection, computerSelection));
+        i++;
+      } else {
+        console.log("invalid input")
+        alert("Wrong input!Pleae write rock, paper or scissors!")
+      }
+    }
 
-  } else if (playerScore === computerScore) {
-    message = "You tied with the Computer. Try Again!"
-  } else {
-    message = "Loser! Computer wins the game ;("
+    if (playerScore > computerScore) {
+      console.log(`Game result: Player wins
+    Player: ${playerScore}
+    Computer: ${computerScore}`);
+      playerWins++;
+      console.log(`Player final score: ${playerWins}`)
+    } else if (playerScore < computerScore) {
+      console.log(`Game result: You lost
+    Player: ${playerScore}
+    Computer: ${computerScore}`);
+      computerWins++;
+      console.log(`Computer final score: ${computerWins}`)
+    } else {
+      console.log("Game result: Its draw!");
+    }
+    alert(`Game nr ${gameNumber} finished`)
+    console.log(`Game nr ${gameNumber}
+      Player: ${playerWins}
+      Computer: ${computerWins}`)
   }
-  // Reports the winner 
-  console.log("Game is over \nResult: " + message);
-  alert(`Thank You for playing! \nThe score is: \nPlayer: ${playerScore} - Computer: ${computerScore} \n${message}`)
+
 }
-
-// Starts the game
 game();
