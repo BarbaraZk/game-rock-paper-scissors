@@ -55,9 +55,7 @@ function game() {
     }
   }
   scoreCard();
-
-  playerScore = 0;
-  computerScore = 0;
+  playRequest();
 }
 
 const playRequest = function () {
@@ -89,8 +87,7 @@ function scoreCard() {
     message = "Loser! Computer wins the game ;(";
     console.log(message);
     computerWins++;    
-  }
-  playRequest();
+  }  
 }
 
 function finalWinner() {
