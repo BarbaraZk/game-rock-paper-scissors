@@ -110,5 +110,4 @@ function roundResults(gameNumber, playerSelection, computerSelection){
   console.log(playRound(playerSelection, computerSelection));
 }
 
-// Starts the game
 game();
