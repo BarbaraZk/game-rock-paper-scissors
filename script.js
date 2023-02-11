@@ -1,20 +1,18 @@
 let playerScore = 0;
 let computerScore = 0;
+let message = "";
 let playerWins = 0;
 let computerWins = 0;
-let message = "";
-let again = false;
 
 function computerPlay() {
-  const choices = ["Rock", "Paper", "Scissors"];
-  const computerHand = choices[Math.floor(Math.random() * choices.length)].toLowerCase();
-  return computerHand
+  const choices = ["Rock", "Paper", "Scissor"];
+  const computerHand =
+    choices[Math.floor(Math.random() * choices.length)].toLowerCase();
+  return computerHand;
 }
 
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === computerSelection) {
-    playerScore;
-    computerScore;
     return `It's a Tie, You both picked ${playerSelection}`;
   } else if (
     (playerSelection === "rock" && computerSelection === "scissor") ||
@@ -33,8 +31,6 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-
-
 function game() {
   for (let i = 1; i <= 5; i++) {
     const computerSelection = computerPlay();
@@ -44,75 +40,72 @@ function game() {
 
     if (playerSelection === "rocks" || playerSelection === "rock") {
       playerSelection = "rock";
-      console.log(`Round: ${i}
-      Player selection is: ${playerSelection}
-      Computer selection is: ${computerSelection}`);
-
-      console.log(playRound(playerSelection, computerSelection));
+      roundResults(i, playerSelection, computerSelection);
     } else if (playerSelection === "papers" || playerSelection === "paper") {
       playerSelection = "paper";
-      console.log(`Round: ${i}
-      Player selection is: ${playerSelection}
-      Computer selection is: ${computerSelection}`);
-
-      console.log(playRound(playerSelection, computerSelection));
+      roundResults(i, playerSelection, computerSelection);
     } else if (
       playerSelection === "scissors" ||
       playerSelection === "scissor"
     ) {
       playerSelection = "scissor";
-      console.log(`Round: ${i}
-      Player selection is: ${playerSelection}
-      Computer selection is: ${computerSelection}`);
-
-      console.log(playRound(playerSelection, computerSelection));
+      roundResults(i, playerSelection, computerSelection);
     } else {
       console.log("Invalid Entry");
       i--;
     }
   }
   scoreCard();
-
-  playerScore = 0;
-  computerScore = 0;
+  playRequest();
 }
 
 const playRequest = function () {
-  if (playAgain()) {
+  if (window.confirm("Do you want to play another round?")) {
+    playerScore = 0;
+    computerScore = 0;
     return game();
   } else {
     alert(`Thank You for playing!
-       The Round score is: 
+       The game score is: 
        Player: ${playerScore} - Computer: ${computerScore} 
-
        Total Game Wins by Player: ${playerWins} 
        Total Game Wins by Computer: ${computerWins}
-
-       ${message}`);
+       Current Game: ${message}
+       
+       ${finalWinner()}`);
   }
 };
 
 function scoreCard() {
   if (playerScore > computerScore) {
-    message = "Congratulations! You won!!!";
+    message = "Congratulations! You won the game!!!";
     console.log(message);
     playerWins++;
-    // playRequest();
   } else if (playerScore === computerScore) {
     message = `You tied with the Computer. Try Again!`;
     console.log(message);
-    // playRequest();
   } else {
     message = "Loser! Computer wins the game ;(";
     console.log(message);
     computerWins++;
-    // playRequest();
   }
-  playRequest();
 }
 
-const playAgain = function () {
-  return window.confirm("Do you want to play another round?");
-};
-// Starts the game
+function finalWinner() {
+  if (playerWins > computerWins) {
+    return `You won the majority of games!`;
+  } else if (computerWins > playerWins) {
+    return `Computer won the majority of games!`;
+  } else {
+    return `You and Computer Tied!`;
+  }
+}
+
+function roundResults(gameNumber, playerSelection, computerSelection) {
+  console.log(`Round: ${gameNumber}
+  Player selection is: ${playerSelection}
+  Computer selection is: ${computerSelection}`);
+  console.log(playRound(playerSelection, computerSelection));
+}
+
 game();
