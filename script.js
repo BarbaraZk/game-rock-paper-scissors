@@ -14,13 +14,12 @@ function playerPlay() {
   let playerSelection = prompt("Choose wisely: Rock, Paper or Scissors") 
     playerSelection = playerSelection.toLowerCase().replace(/\s+/g, "");
     if (playerSelection === "rocks" || playerSelection === "rock") {
-      playerSelection = "rock"
+     return  playerSelection = "rock"
     } else if (playerSelection === "papers" || playerSelection === "paper") {
-      playerSelection = "paper"
+     return  playerSelection = "paper"
     } else if (playerSelection === "scissors" || playerSelection === "scissor") {
-      playerSelection = "scissor"
+     return  playerSelection = "scissor"
     }
-    return playerSelection
   }
 
 
