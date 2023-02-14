@@ -5,11 +5,25 @@ let playerWins = 0;
 let computerWins = 0;
 
 function computerPlay() {
-  const choices = ["Rock", "Paper", "Scissor"];
-  const computerHand =
-    choices[Math.floor(Math.random() * choices.length)].toLowerCase();
+  const choices = ["rock", "paper", "scissor"];
+  const computerHand = choices[Math.floor(Math.random() * choices.length)];
   return computerHand;
 }
+
+function playerPlay() {
+  let playerSelection = prompt("Choose wisely: Rock, Paper or Scissors") 
+    playerSelection = playerSelection.toLowerCase().replace(/\s+/g, "");
+    if (playerSelection === "rocks" || playerSelection === "rock") {
+      playerSelection = "rock"
+    } else if (playerSelection === "papers" || playerSelection === "paper") {
+      playerSelection = "paper"
+    } else if (playerSelection === "scissors" || playerSelection === "scissor") {
+      playerSelection = "scissor"
+    }
+    return playerSelection
+  }
+
+
 
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === computerSelection) {
@@ -34,33 +48,21 @@ function playRound(playerSelection, computerSelection) {
 function game() {
   for (let i = 1; i <= 5; i++) {
     const computerSelection = computerPlay();
-    let playerSelection = prompt("Rock, Paper or Scissors")
-      .toLowerCase()
-      .replace(/\s+/g, "");
-
-    if (playerSelection === "rocks" || playerSelection === "rock") {
-      playerSelection = "rock";
+    let playerSelection = playerPlay();
+    if (playerSelection == "rock" || playerSelection == "paper" || playerSelection == "scissor") {
       roundResults(i, playerSelection, computerSelection);
-    } else if (playerSelection === "papers" || playerSelection === "paper") {
-      playerSelection = "paper";
-      roundResults(i, playerSelection, computerSelection);
-    } else if (
-      playerSelection === "scissors" ||
-      playerSelection === "scissor"
-    ) {
-      playerSelection = "scissor";
-      roundResults(i, playerSelection, computerSelection);
-    } else {
+    }
+    else {
       console.log("Invalid Entry");
       i--;
     }
-  }
-  scoreCard();
+}
+scoreCard();
   playRequest();
 }
 
 const playRequest = function () {
-  if (window.confirm("Do you want to play another round?")) {
+  if (window.confirm("Do you want to play another game?")) {
     playerScore = 0;
     computerScore = 0;
     return game();
@@ -108,4 +110,10 @@ function roundResults(gameNumber, playerSelection, computerSelection) {
   console.log(playRound(playerSelection, computerSelection));
 }
 
-game();
+function gameRequest() {
+  if (window.confirm("Would you like to play a GAME: Rock, Paper, Scissors?")) {
+    game()
+  }
+}
+
+gameRequest()
