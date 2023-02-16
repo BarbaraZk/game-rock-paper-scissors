@@ -3,19 +3,15 @@ let computerScore = 0;
 let message = "";
 let playerWins = 0;
 let computerWins = 0;
-let again = false;
 
 function computerPlay() {
-  const choices = ["Rock", "Paper", "Scissor"];
-  const computerHand =
-    choices[Math.floor(Math.random() * choices.length)].toLowerCase();
+  const choices = ["rock", "paper", "scissor"];
+  const computerHand = choices[Math.floor(Math.random() * choices.length)];
   return computerHand;
 }
 
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === computerSelection) {
-    playerScore;
-    computerScore;
     return `It's a Tie, You both picked ${playerSelection}`;
   } else if (
     (playerSelection === "rock" && computerSelection === "scissor") ||
@@ -37,56 +33,81 @@ function playRound(playerSelection, computerSelection) {
 function game() {
   for (let i = 1; i <= 5; i++) {
     const computerSelection = computerPlay();
-    let playerSelection = prompt("Rock, Paper or Scissors")
-      .toLowerCase()
-      .replace(/\s+/g, "");
+    let playerSelection = playerPlay();
 
     if (playerSelection === "rocks" || playerSelection === "rock") {
       playerSelection = "rock";
-      console.log(`Round: ${i}
-      Player selection is: ${playerSelection}
-      Computer selection is: ${computerSelection}`);
-      console.log(playRound(playerSelection, computerSelection));
+      roundResults(i, playerSelection, computerSelection);
     } else if (playerSelection === "papers" || playerSelection === "paper") {
       playerSelection = "paper";
-      console.log(`Round: ${i}
-      Player selection is: ${playerSelection}
-      Computer selection is: ${computerSelection}`);
-      console.log(playRound(playerSelection, computerSelection));
+      roundResults(i, playerSelection, computerSelection);
     } else if (
       playerSelection === "scissors" ||
       playerSelection === "scissor"
     ) {
       playerSelection = "scissor";
-      console.log(`Round: ${i}
-      Player selection is: ${playerSelection}
-      Computer selection is: ${computerSelection}`);
-      console.log(playRound(playerSelection, computerSelection));
+      roundResults(i, playerSelection, computerSelection);
+    } else if (playerSelection === null) {
+      if (askToQuit()) {
+        return;
+      } else {
+        i--;
+      }
     } else {
-      console.log("Invalid Entry");
+      console.log("Invalid Input");
       i--;
     }
   }
   scoreCard();
+  playRequest();
+}
 
-  playerScore = 0;
-  computerScore = 0;
+function askToQuit() {
+  let choice = window.confirm("Do you want to quit?");
+  if (choice === true) {
+    return choice;
+  } else {
+    return choice;
+  }
+}
+
+function playerPlay() {
+  let playerSelected = prompt(`
+  Rock - Paper - Scissors game.
+
+  Rock beats Scissors / Scissors beats Paper / Paper beats Rock.
+
+  Type your choice:
+  `);
+  if (playerSelected && playerSelected !== null) {
+    return playerSelected.toLowerCase().replace(/\s+/g, "");
+  } else if (playerSelected === null) {
+    return null;
+  }
 }
 
 const playRequest = function () {
-  if (playAgain()) {
+  if (window.confirm("Do you want to play another game?")) {
     playerScore = 0;
     computerScore = 0;
     return game();
   } else {
-    alert(`Thank You for playing!
-       The Game score is: 
-       Player: ${playerScore} - Computer: ${computerScore} 
+    console.log(`Final Results:
+    Current Game: ${message}
+
+    Total Game Wins by Player: ${playerWins} 
+    Total Game Wins by Computer: ${computerWins}
+    `);
+
+    alert(`
+       Thank You for playing!
+       
+       The game score is: 
+       Player: ${playerScore} - Computer: ${computerScore}
+       Current Game: ${message}
 
        Total Game Wins by Player: ${playerWins} 
        Total Game Wins by Computer: ${computerWins}
-
-       Current Game: ${message}
        
        ${finalWinner()}`);
   }
@@ -96,30 +117,41 @@ function scoreCard() {
   if (playerScore > computerScore) {
     message = "Congratulations! You won the game!!!";
     console.log(message);
+    console.log(
+      `Current game Score: Player: ${playerScore} Computer: ${computerScore}`
+    );
     playerWins++;
   } else if (playerScore === computerScore) {
     message = `You tied with the Computer. Try Again!`;
+    console.log(
+      `Current game Score: Player: ${playerScore} Computer: ${computerScore}`
+    );
     console.log(message);
   } else {
     message = "Loser! Computer wins the game ;(";
+    console.log(
+      `Current game Score: Player: ${playerScore} Computer: ${computerScore}`
+    );
     console.log(message);
     computerWins++;
   }
-  playRequest();
 }
 
 function finalWinner() {
   if (playerWins > computerWins) {
-    return `You won the majority of games!`;
+    return `Final Result: You won the majority of games!`;
   } else if (computerWins > playerWins) {
-    return `Computer won the majority of games!`;
+    return `Final Result: Computer won the majority of games!`;
   } else {
-    return `You and Computer Tied!`;
+    return `Final Result: You and Computer Tied!`;
   }
 }
 
-const playAgain = function () {
-  return window.confirm("Do you want to play another round?");
-};
+function roundResults(gameNumber, playerSelection, computerSelection) {
+  console.log(`Round: ${gameNumber}
+  Player selection is: ${playerSelection}
+  Computer selection is: ${computerSelection}`);
+  console.log(playRound(playerSelection, computerSelection));
+}
 
 game();
